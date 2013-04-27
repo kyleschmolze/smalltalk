@@ -6,11 +6,21 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+  <script>
+    App = {
+      Views: {},
+      Models: {},
+      Collections: {}
+    }
+  </script>
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script src="/js/index.js"></script>
+  <script src="/js/item.js"></script>
 </head>
 <body>
   <div class='container'>
@@ -24,36 +34,12 @@
           <a href='javascript:void(0);'>Soemthing else</a>
         </li>
       </ul>
-
-      <div class='span6'>
-        <p id="msg">loading...</p>
-      </div>
-      <div class='span6'>
-        Soemthing else
-      </div>
     </div>
   </div>
-
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    window.onload = function () {
-      // Connect to socket.io
-      var socket = io.connect();
-
-      // React to a received message
-      socket.on('ping', function (data) {
-
-        // Modify the DOM to show the message
-        document.getElementById("msg").innerHTML = data.msg;
-        $("ul").prepend("<li><a href='javascript:void(0);'>"+data.msg+"</a></li>")
-
-        // Send a message back to the server
-        socket.emit('pong', {
-          msg: "The web browser also knows socket.io."
-        });
-      });
-    };
+  <script type='text/template' id='item-view'>
+    <a href='javascript:void(0);'>
+      <%= title %>
+    </a>
   </script>
 </body>
 </html>
