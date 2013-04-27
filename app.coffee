@@ -22,6 +22,9 @@ app.get '/', (req, res) ->
 #//Socket.io emits this event when a connection is made.
 io.sockets.on 'connection', (socket) ->
 
+  setInterval ->
+    socket.emit 'ping', {msg: ["hi", "fuck you", "love life", "eat babies"][parseInt(Math.random() * 4)]}
+  , 2000
   #// Emit a message to send it to the client.
   socket.emit('ping', { msg: 'Hello. I know socket.io.' })
 
