@@ -19,6 +19,9 @@ console.log(url)
 app.get '/', (req, res) ->
   res.sendfile(__dirname + '/index.html')
 
+app.use(express.static(__dirname + '/public'))
+
+
 #//Socket.io emits this event when a connection is made.
 io.sockets.on 'connection', (socket) ->
 
