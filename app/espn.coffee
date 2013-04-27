@@ -2,8 +2,9 @@ request = require('request')
 apiKey = 'n5u6v22j4525znf95x8qcssj'
 
 module.exports = ()->
-	api.GetAthleteTrivia 2330, (headlines)->
-    console.log headlines
+	api
+  # api.GetAthleteTrivia 2330, (headlines)->
+  #    console.log headlines
 
 	# api.GetAthleteDetails 'football', 'nfl', 2330, (details)->
 	# 	console.log details
@@ -19,6 +20,7 @@ api =
       if (!error and response.statusCode is 200)
         results = JSON.parse(body)
         console.log results.sports[0].leagues[0].events
+    return null
 
 
   GetAthleteTrivia: (athleteId, callback) ->
@@ -26,8 +28,6 @@ api =
     request url, (error, response, body) ->
       if (!error and response.statusCode is 200)
         results = JSON.parse(body)
-        console.log results
-        #console.log results
         headlines = []
         for note in results.notes
           if (note.text.length < 400)
@@ -37,6 +37,7 @@ api =
               text: note.text
 
         return callback headlines
+    return null
 
   GetAthleteHeadlines: (sport, league, athleteId, callback) ->
     url = "http://api.espn.com/v1/sports/#{sport}/#{league}/news/?athletes=#{athleteId}&apikey=#{apiKey}"
@@ -52,6 +53,7 @@ api =
             text: headline.description
 
         return callback headlines
+    return null
 
   GetAthleteDetails: (sport, league, athleteId, callback) ->
     url = "http://api.espn.com/v1/sports/#{sport}/#{league}/athletes/#{athleteId}?apikey=#{apiKey}"
@@ -60,3 +62,5 @@ api =
         results = JSON.parse(body)
         details = results.sports?[0].leagues?[0].athletes?[0]
         return callback details
+    return null
+

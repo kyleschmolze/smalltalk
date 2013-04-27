@@ -1,4 +1,6 @@
 module.exports = (socket) ->
+  trivia_store = require("./trivia_store")()
+
   opts =
     canned_data: true
     refresh_interval: 2000
@@ -23,49 +25,26 @@ module.exports = (socket) ->
         url += "starttime/" + opts.timestamp + "/duration/200/format.json"
       
     request url, (error, response, body) ->
-      console.log url
       
       if (error || response.statusCode != 200)
         console.log error
         console.log response.statusCode
       else
         opts.results = JSON.parse(body)
-        console.log opts.results["LiveFeedItems"].length
-        if (item = extractPlayerItem(opts))?
-          socket.emit 'new-item', item
-        else if (item = extractRuleItem(opts))?
-          socket.emit 'new-item', item
 
+        for result in opts.results
+          t = result["Timestamp"]
+          console.log t
+          if !opts.canned_data && (opts.timestamp || t > opts.timestamp)
+            opts.timestamp = t
+        trivia_store.GetPlayerTrivia(opts.results, {
+          success: (headline) ->
+            socket.emit 'new-item', headline
+          failure: () ->
+            if (item = extractRuleItem(opts))?
+              socket.emit 'new-item', item
+        })
   , opts.refresh_interval
-
-
-
-  extractPlayerItem = (opts) ->
-    for result in opts.results["LiveFeedItems"]
-      console.log result["Data"]["Text"]
-      #socket.emit 'ping', {msg: JSON.stringify(result)}
-
-      t = result["Timestamp"]
-      console.log t
-      if !opts.canned_data && (opts.timestamp || t > opts.timestamp)
-        opts.timestamp = t
-      for match in result["Matches"]
-        #console.log JSON.stringify match
-        for action in match["Actions"]
-          if action["Type"].indexOf("espn") != -1
-            name, id = null
-            for attribute in action["Attributes"]
-              if attribute["Name"] == "id"
-                id = attribute["Value"]
-              if attribute["Name"] == "term"
-                name = attribute["Value"]
-            if name? and id?
-              return {
-                title: name
-                image: 'http://www.nba.com/media/allstar2008/rallen_300_080130.jpg'
-                description: "A description."
-              }
-    return null
 
 
   extractRuleItem = (opts) ->
