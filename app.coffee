@@ -18,21 +18,20 @@ server.listen(port)
 console.log("Express server listening on port " + port)
 console.log(url)
 
-
 app.configure () ->
-    app.use express.compress()
-    app.use '/public', express.static(__root + '/public')
-    #app.use express.favicon(__root + '/public/images/favicon.ico')
-    #app.set '../views', __dirname + '/views'
-    #app.set 'view engine', 'jade'
-    #app.locals { layout: false, pretty: false }
-    app.use express.logger()
-    app.use express.cookieParser()
-    app.use express.bodyParser()
-    app.use express.methodOverride()           
-    app.use express.cookieSession { key: 'sesh', secret: 'superfuntime' }
-    #app.use flash()
-    app.use app.router
+  app.use express.compress()
+  app.use '/public', express.static(__dirname + '/public')
+  #app.use express.favicon(__root + '/public/images/favicon.ico')
+  #app.set '../views', __dirname + '/views'
+  #app.set 'view engine', 'jade'
+  #app.locals { layout: false, pretty: false }
+  app.use express.logger()
+  app.use express.cookieParser()
+  app.use express.bodyParser()
+  app.use express.methodOverride()
+  app.use express.cookieSession { key: 'sesh', secret: 'superfuntime' }
+  #app.use flash()
+  app.use app.router
 
 app.get '/', (req, res) ->
   res.sendfile(__dirname + '/index.html')
