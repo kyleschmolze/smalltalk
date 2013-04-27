@@ -6,7 +6,9 @@
 
   $(document).ready(function() {
     App.Views.index = new App.Views.Index();
-    return App.Collections.items = new App.Collections.Items();
+    App.Collections.items = new App.Collections.Items();
+    App.router = new App.Router();
+    return Backbone.history.start();
   });
 
   App.Views.Index = (function(_super) {
