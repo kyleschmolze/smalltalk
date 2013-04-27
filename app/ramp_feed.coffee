@@ -53,13 +53,18 @@ module.exports = (socket) ->
         #console.log JSON.stringify match
         for action in match["Actions"]
           if action["Type"].indexOf("espn") != -1
+            name, id = null
             for attribute in action["Attributes"]
+              if attribute["Name"] == "id"
+                id = attribute["Value"]
               if attribute["Name"] == "term"
-                return {
-                  title: attribute["Value"]
-                  image: 'http://www.nba.com/media/allstar2008/rallen_300_080130.jpg'
-                  description: "A description."
-                }
+                name = attribute["Value"]
+            if name? and id?
+              return {
+                title: name
+                image: 'http://www.nba.com/media/allstar2008/rallen_300_080130.jpg'
+                description: "A description."
+              }
     return null
 
 

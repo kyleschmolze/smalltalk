@@ -8,6 +8,7 @@ io = require('socket.io').listen(server)
 port = 8080
 url  = 'http://localhost:' + port + '/'
 
+espn = require('./app/espn')()
 
 #/* We can access nodejitsu enviroment variables from process.env */
 #/* Note: the SUBDOMAIN variable will always be defined for a nodejitsu app */
