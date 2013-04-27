@@ -4,7 +4,6 @@ class App.Router extends Backbone.Router
     "item/:cid": "item"
 
   index: ->
-    console.log 'index'
     $(".feed").show()
     $(".details").hide()
 

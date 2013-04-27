@@ -18,7 +18,6 @@
     };
 
     Router.prototype.index = function() {
-      console.log('index');
       $(".feed").show();
       return $(".details").hide();
     };

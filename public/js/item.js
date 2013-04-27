@@ -19,8 +19,9 @@
       socket = io.connect();
       socket.on('new-item', function(data) {
         return _this.add(new App.Models.Item({
-          title: data.msg,
-          description: 'some more stuff'
+          title: data.title,
+          image: data.image,
+          description: data.description
         }));
       });
       return this.details_view = new App.Views.Details({

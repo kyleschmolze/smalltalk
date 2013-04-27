@@ -3,8 +3,9 @@ class App.Collections.Items extends Backbone.Collection
     socket = io.connect()
     socket.on 'new-item', (data) =>
       this.add new App.Models.Item
-        title: data.msg
-        description: 'some more stuff'
+        title: data.title
+        image: data.image
+        description: data.description
 
     this.details_view = new App.Views.Details
       el: $(".details")
