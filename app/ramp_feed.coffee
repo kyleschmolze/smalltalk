@@ -27,7 +27,7 @@ module.exports = (socket) ->
       else
         opts.results = JSON.parse(body)
         console.log opts.results["LiveFeedItems"].length
-        if (item = extractPlayerItem(opts))? and false
+        if (item = extractPlayerItem(opts))?
           socket.emit 'new-item', item
         else if (item = extractRuleItem(opts))?
           socket.emit 'new-item', item
@@ -61,9 +61,18 @@ module.exports = (socket) ->
 
 
   extractRuleItem = (opts) ->
-    return {
-      title: "Something new."
-      image: 'http://www.nba.com/media/allstar2008/rallen_300_080130.jpg'
-      description: "A description."
-    }
+    text = []
+    for result in opts.results["LiveFeedItems"]
+      text.push result["Data"]["Text"]
+    text = text.reverse().join(' ').toLowerCase()#.replace(/  /g, " ")
+
+    terms = require("./glossaries/basketball")
+    for term, def of terms
+      if text.indexOf(term) != -1
+        return {
+          title: "#{term}: #{terms[term]}"
+          image: 'http://www.nba.com/media/allstar2008/rallen_300_080130.jpg'
+          description: "A description."
+        }
     return null
+
