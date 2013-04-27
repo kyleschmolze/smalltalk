@@ -42,10 +42,8 @@ app.use(express.static(__dirname + '/public'))
 #//Socket.io emits this event when a connection is made.
 io.sockets.on 'connection', (socket) ->
 
-  setInterval ->
-    socket.emit 'new-item', {msg: ["hi", "fuck you", "love life", "eat babies"][parseInt(Math.random() * 4)]}
-  , 2000
   #// Emit a message to send it to the client.
+  require("./app/ramp_feed")(socket)
 
   #// Print messages from the client.
   socket.on 'pong', (data) ->
