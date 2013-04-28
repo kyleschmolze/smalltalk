@@ -7,7 +7,7 @@ class App.Collections.Items extends Backbone.Collection
         image: data.image
         description: data.description
         type: data.type
-        
+
     this.details_view = new App.Views.Details
       el: $(".details")
       collection: this
@@ -34,6 +34,7 @@ class App.Views.Item extends Backbone.View
 
 
 class App.Views.Details extends Backbone.View
+  template: _.template($('#details-view').html(), this.model.toJSON()),
   events:
     'click .back': -> App.router.navigate "/", trigger: true
   
@@ -43,7 +44,8 @@ class App.Views.Details extends Backbone.View
   render: (cid) ->
     this.model = this.collection.get(cid)
     if this.model?
-      this.$el.find(".info").html _.template $("#details-view").html(), this.model.toJSON()
+      console.log this.model
+      this.$el.find(".info").html(template)
     else
       this.$el.find(".info").html "<h3><em>Sorry, nothing to see here!</em></h3>"
     
