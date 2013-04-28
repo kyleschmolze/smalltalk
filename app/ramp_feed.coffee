@@ -5,7 +5,7 @@ module.exports = (socket) ->
 
   opts =
     canned_data: true
-    refresh_interval: 2000
+    refresh_interval: 10000
     timestamp: null
     results: null
     teams: [6]
