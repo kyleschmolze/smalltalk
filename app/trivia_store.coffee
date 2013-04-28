@@ -3,6 +3,7 @@ module.exports = () ->
 
 
 espn = require("./espn")()
+klout = require("./klout")()
 
 triviaStore =
   allPlayerData: {} # { playerId: { items: [], league: 'nba', sport: 'basketball' }
@@ -48,14 +49,14 @@ triviaStore =
         espn.GetAthleteHeadlines playerData, (headlines) =>
           playerData.items = playerData.items.concat headlines
 
-          #All done grabbin teh data!
-          if playerData.items.length > 0
-            playerData.items = this._shuffle(playerData.items)
-            #this.allPlayerData[playerId] = playerData
-            #this.allPlayerData[playerId].name = playerData.name
-            #this.allPlayerData[playerId].image = playerData.image
+          klout.GetScore playerData, (score) =>
+            playerData.metadata.score = score
 
-          callback(playerData)
+            #All done grabbin teh data!
+            if playerData.items.length > 0
+              playerData.items = this._shuffle(playerData.items)
+
+            callback(playerData)
 
   PullItem: (playerId) ->
     this.index or= 0
