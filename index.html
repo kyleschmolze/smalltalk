@@ -45,13 +45,16 @@
   </div>
   <script type='text/template' id='item-view'>
     <a href='javascript:void(0);'>
+      <% if (image) { %>
+        <img src=<%=image%> height=30 width=30>
+      <% } %> 
       <%= title %>
     </a>
   </script>
 
   <script type='text/template' id='details-view'>
     <h2><%= title %></h2>
-    <h3><%= image %></h3>
+    <h3><%= description %></h3>
   </script>
 </body>
 </html>
