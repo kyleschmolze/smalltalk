@@ -19,6 +19,7 @@ triviaStore =
       if !h.used?
         h.used = true
         return {
+          type: "player",
           title: h["headline"],
           description: h["text"]
         }
