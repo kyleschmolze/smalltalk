@@ -50,7 +50,6 @@ class App.Views.Details extends Backbone.View
   render: (cid) ->
     this.model = this.collection.get(cid)
     if this.model?
-      console.log this.model
       this.$el.find(".info").html(this.template())
     else
       this.$el.find(".info").html "<h3><em>Sorry, nothing to see here!</em></h3>"
