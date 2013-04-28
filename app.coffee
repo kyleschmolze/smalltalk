@@ -44,7 +44,7 @@ app.use(express.static(__dirname + '/public'))
 io.sockets.on 'connection', (socket) ->
 
   #// Emit a message to send it to the client.
-  require("./app/ramp_feed")(socket)
+  require("./app/uni_ramp_feed")(socket)
 
   #// Print messages from the client.
   socket.on 'pong', (data) ->
