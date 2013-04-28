@@ -1,20 +1,28 @@
 module.exports = ->
   team_store
 
-espn = require('espn')()
+espn = require("./espn")()
 team_store =
+  localData:
+    index: 0
+
   GetHeadline: (teams, opts) ->
-    if this.headlines?
+    if this.localData.headlines?
       return this.NextHeadline()
     else
       espn.GetTeamHeadlines
-        success: (headlines) ->
-          this.headlines = headlines
-          opts.success this.NextHeadline()
-        failure: ->
+        teams: teams
+        success: (headlines) =>
+          if headlines?
+            this.localData.headlines = headlines
+            opts.success this.NextHeadline()
+          else
+            opts.failure()
+        failure: =>
           opts.failure()
 
   NextHeadline: ->
-    this.index or= 0
-    this.headlines[this.index]
-    this.index = (this.index + 1) % this.headlines.length
+    console.log "SOMETHING"
+    console.log this.localData.headlines
+    this.localData.headlines[this.localData.index]
+    this.localData.index = (this.localData.index + 1) % this.localData.headlines.length
