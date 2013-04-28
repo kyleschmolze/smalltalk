@@ -4,7 +4,7 @@ module.exports = () ->
 
 triviaStore =
   localDataStore: {}
-  sentDetails: false
+  sentDetails: {}
   _shuffle: (a) ->
     i = a.length
     while --i > 0
@@ -31,14 +31,15 @@ triviaStore =
     if !playerId
       opts.failure()
       return
-    if !sentDetails
-      sentDetails = true
+    if !this.sentDetails || !this.sentDetails[playerId]
+      this.sentDetails[playerId] = true
       espn = require("./espn")()
       espn.GetAthleteDetails "basketball", "nba", playerId, (details) =>
           if details.length > 0
             console.log "details success!!"
             console.log details
             opts.success {
+                      type: "player",
                       title: details["fullName"],
                       description:"#{details.firstName}, repping #{details.teams[0].name}, weighs in at a massive #{details.weight} pounds." 
                     }
