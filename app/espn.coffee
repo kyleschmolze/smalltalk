@@ -67,11 +67,12 @@ api =
         if results.headlines?
           for headline in results.headlines
             headlines.push
-              title: headline.headline
+              title: "Team news: #{headline.headline}"
               description: headline.description
               story: headline.story
               type: 'team-headline'
 
+          console.log "Building headlines in ESPN: #{headlines.length} of em."
           return opts.success headlines
         else
           return opts.failure()

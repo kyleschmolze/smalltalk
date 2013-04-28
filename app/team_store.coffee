@@ -15,14 +15,14 @@ team_store =
         success: (headlines) =>
           if headlines?
             this.localData.headlines = headlines
-            opts.success this.NextHeadline()
+            head = this.NextHeadline()
+            console.log "Success! #{head.title}"
+            opts.success head
           else
             opts.failure()
         failure: =>
           opts.failure()
 
   NextHeadline: ->
-    console.log "SOMETHING"
-    console.log this.localData.headlines
-    this.localData.headlines[this.localData.index]
     this.localData.index = (this.localData.index + 1) % this.localData.headlines.length
+    this.localData.headlines[this.localData.index]

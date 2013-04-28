@@ -48,7 +48,6 @@ module.exports = (socket) ->
               success: (rule) ->
                 socket.emit 'new-item', rule
               failure: ->
-                return null
                 team_store.GetHeadline opts.teams,
                   success: (headline) ->
                     socket.emit 'new-item', headline

@@ -16,5 +16,5 @@ dictionary_store =
           type: "definition"
           title: term
           description: dictionary[term]
-      else
-        opts.failure()
+        return null
+    opts.failure()
