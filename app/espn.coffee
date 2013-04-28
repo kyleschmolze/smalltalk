@@ -32,7 +32,6 @@ api =
 
   GetAthleteHeadlines: (sport, league, athleteId, callback) ->
     url = "http://api.espn.com/v1/sports/#{sport}/#{league}/news/?athletes=#{athleteId}&apikey=#{apiKey}"
-    #console.log url          
     request url, (error, response, body) ->
       if (!error and response.statusCode is 200)
         results = JSON.parse(body)

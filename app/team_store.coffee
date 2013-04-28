@@ -7,8 +7,9 @@ team_store =
     index: 0
 
   GetHeadline: (teams, opts) ->
+    console.log 'getting team headlines'
     if this.localData.headlines?
-      return this.NextHeadline()
+      opts.success this.NextHeadline()
     else
       espn.GetTeamHeadlines
         teams: teams

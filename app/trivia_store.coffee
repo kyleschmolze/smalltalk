@@ -2,6 +2,8 @@ module.exports = () ->
   triviaStore
 
 
+espn = require("./espn")()
+
 triviaStore =
   localDataStore: {}
   playerDetails: {}
@@ -30,11 +32,11 @@ triviaStore =
 
   GetPlayerNotes: (results, opts) ->
     playerId = this.ExtractPlayerItem(results)
-    if !playerId
+    if !playerId?
       opts.failure()
-      return
-    if !this.playerDetails[playerId]
-      espn = require("./espn")()
+    else if !this.playerDetails[playerId]
+      #this.GetDetail()
+      #this.GetPlayer()
       espn.GetAthleteDetails "basketball", "nba", playerId, (details) =>
           if details
             this.playerDetails[playerId] = details
@@ -43,7 +45,7 @@ triviaStore =
             opts.success {
                       type: "player",
                       title: details["fullName"],
-                      description:"#{details['firstName']}, repping #{details['team']['name']}, weighs in at a massive #{details.weight} pounds.", 
+                      description:"#{details['firstName']}, repping #{details['team']['name']}, weighs in at a massive #{details.weight} pounds.",
                       image: details['headshots']['xlarge']['href']
                     }
           else

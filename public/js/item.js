@@ -21,7 +21,8 @@
         return _this.add(new App.Models.Item({
           title: data.title,
           image: data.image,
-          description: data.description
+          description: data.description,
+          type: data.type
         }));
       });
       return this.details_view = new App.Views.Details({
@@ -92,6 +93,8 @@
       return _ref3;
     }
 
+    Details.prototype.template = _.template($('#details-view').html(), Details.model.toJSON());
+
     Details.prototype.events = {
       'click .back': function() {
         return App.router.navigate("/", {
@@ -107,7 +110,8 @@
     Details.prototype.render = function(cid) {
       this.model = this.collection.get(cid);
       if (this.model != null) {
-        return this.$el.find(".info").html(_.template($("#details-view").html(), this.model.toJSON()));
+        console.log(this.model);
+        return this.$el.find(".info").html(template);
       } else {
         return this.$el.find(".info").html("<h3><em>Sorry, nothing to see here!</em></h3>");
       }

@@ -5,12 +5,12 @@ module.exports = (socket) ->
 
   opts =
     canned_data: true
-    refresh_interval: 2000
+    refresh_interval: 15000
     timestamp: null
     results: null
     teams: [6]
   
-  setInterval ->
+  makeRequest = ->
     request = require('request')
     url = 'http://livefeed.api.tv/hack2013/v1/getlivefeeditems/args/livefeed/1632384/showMatches/true/'
     if !opts.timestamp
@@ -22,7 +22,7 @@ module.exports = (socket) ->
     else
       if opts.canned_data
         opts.timestamp += opts.refresh_interval
-        url += "starttime/" + opts.timestamp + "/duration/2/format.json"
+        url += "starttime/" + opts.timestamp + "/duration/#{opts.refresh_interval / 1000}/format.json"
       else
         opts.timestamp += 1
         url += "starttime/" + opts.timestamp + "/duration/200/format.json"
@@ -35,11 +35,11 @@ module.exports = (socket) ->
       else
         opts.results = JSON.parse(body)
 
-        for result in opts.results
+        for result in opts.results["LiveFeedItems"]
           t = result["Timestamp"]
-          console.log t
           if !opts.canned_data && (opts.timestamp || t > opts.timestamp)
             opts.timestamp = t
+
         trivia_store.GetPlayerNotes opts.results,
           success: (headline) ->
             socket.emit 'new-item', headline
@@ -53,4 +53,8 @@ module.exports = (socket) ->
                     socket.emit 'new-item', headline
                   failure: ->
                     null
-  , opts.refresh_interval
+
+
+  makeRequest()
+  setInterval makeRequest, opts.refresh_interval
+
