@@ -80,13 +80,6 @@ api =
         callback []
     return null
 
-    callback([{
-      category: "player detail"
-      title: "a detail"#details["headline"]
-      description: "a desc"#details["text"]
-      image: "img page"#details['headshots']['xlarge']['href']
-    }])
-
   GetTeamHeadlines: (opts) ->
     opts.sport = 'basketball'
     opts.league = 'mens-college-basketball'
@@ -102,7 +95,7 @@ api =
               title: "Team news: #{headline.headline}"
               description: headline.description
               story: headline.story
-              category: 'team-headline'
+              category: 'team'
 
           return opts.success headlines
         else
