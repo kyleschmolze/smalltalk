@@ -100,7 +100,7 @@ api =
         if results.headlines?
           for headline in results.headlines
             headlines.push
-              title: "Team news: #{headline.headline}"
+              title: headline.headline
               description: headline.description
               body: headline.story
               image: headline.images?[0]?.url
