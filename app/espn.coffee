@@ -56,9 +56,16 @@ api =
         funfacts = []
         if details?
           #set playerData for everyone else!
-          name = details['displayName']
-          playerData.name = name
           playerData.image = details['headshots']['medium']['href']
+          playerData.metadata =
+            name: details['displayName']
+            team: details['team']?.name
+            height: details['height']
+            weight: details['weight']
+            age: details['age']
+            jersey: details['jersey']
+
+          name = playerData.metadata.name
 
           funfacts.push "#{name} weighs #{details['weight']} lbs."
           funfacts.push "#{name} is #{details['age']} years old."

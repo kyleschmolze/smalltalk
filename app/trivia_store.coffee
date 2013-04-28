@@ -59,11 +59,13 @@ triviaStore =
 
   PullItem: (playerId) ->
     this.index or= 0
-    item = this.allPlayerData[playerId].items[this.index]
-    this.index = this.index + 1 % this.allPlayerData[playerId].items.length
+    thisPlayer = this.allPlayerData[playerId]
+    item = thisPlayer.items[this.index]
+    this.index = this.index + 1 % thisPlayer.items.length
 
-    item.name = this.allPlayerData[playerId].name
-    item.image = this.allPlayerData[playerId].image
+    item.metadata = thisPlayer.metadata
+    item.name = thisPlayer.name
+    item.image = thisPlayer.image
     item
 
   ExtractPlayerItem: (results) ->

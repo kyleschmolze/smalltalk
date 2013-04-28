@@ -24,7 +24,7 @@
           description: data.description,
           category: data.category,
           body: data.body,
-          name: data.name,
+          metadata: data.metadata,
           url: data.url
         }));
       });
