@@ -16,13 +16,13 @@ module.exports = (socket) ->
     if !opts.timestamp
       if opts.canned_data
         opts.timestamp = 1367022212000
-        url += "starttime/" + opts.timestamp + "/duration/3000/format.json" 
+        url += "starttime/" + opts.timestamp + "/duration/3000/format.json"
       else
         url += "starttime/last/duration/3000/format.json"
     else
       if opts.canned_data
         opts.timestamp += opts.refresh_interval
-        url += "starttime/" + opts.timestamp + "/duration/2/format.json" 
+        url += "starttime/" + opts.timestamp + "/duration/2/format.json"
       else
         opts.timestamp += 1
         url += "starttime/" + opts.timestamp + "/duration/200/format.json"
@@ -48,6 +48,7 @@ module.exports = (socket) ->
               success: (rule) ->
                 socket.emit 'new-item', rule
               failure: ->
+                return null
                 team_store.GetHeadline opts.teams,
                   success: (headline) ->
                     socket.emit 'new-item', headline

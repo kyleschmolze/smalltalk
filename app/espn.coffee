@@ -63,7 +63,17 @@ api =
     request url, (error, response, body) ->
       if (!error and response.statusCode is 200)
         results = JSON.parse(body)
-        headlines = results.headlines?[0].leagues?[0].athletes?[0]
-        return opts.success headlines
+        headlines = []
+        if results.headlines?
+          for headline in results.headlines
+            headlines.push
+              title: headline.headline
+              description: headline.description
+              story: headline.story
+              type: 'team-headline'
+
+          return opts.success headlines
+        else
+          return opts.failure()
       else
         return opts.failure()

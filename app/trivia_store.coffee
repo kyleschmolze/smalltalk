@@ -26,7 +26,7 @@ triviaStore =
       return this.GrabRandomTriviaFromLocalStore(playerId)
 
   GetPlayerTrivia: (results, opts) ->
-    playerId = this.ExtractPlayerItem(results);
+    playerId = this.ExtractPlayerItem(results)
     if !playerId
       opts.failure()
       return
