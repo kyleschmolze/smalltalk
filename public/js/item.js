@@ -94,7 +94,9 @@
       return _ref3;
     }
 
-    Details.prototype.template = _.template($('#details-view').html(), Details.model.toJSON());
+    Details.prototype.template = function() {
+      return _.template($('#details-view').html(), this.model.toJSON());
+    };
 
     Details.prototype.events = {
       'click .back': function() {
@@ -112,7 +114,7 @@
       this.model = this.collection.get(cid);
       if (this.model != null) {
         console.log(this.model);
-        return this.$el.find(".info").html(template);
+        return this.$el.find(".info").html(this.template());
       } else {
         return this.$el.find(".info").html("<h3><em>Sorry, nothing to see here!</em></h3>");
       }

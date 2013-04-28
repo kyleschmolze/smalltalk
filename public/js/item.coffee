@@ -35,7 +35,9 @@ class App.Views.Item extends Backbone.View
 
 
 class App.Views.Details extends Backbone.View
-  template: _.template($('#details-view').html(), this.model.toJSON()),
+  template: ->
+    _.template($('#details-view').html(), this.model.toJSON())
+
   events:
     'click .back': -> App.router.navigate "/", trigger: true
   
@@ -46,7 +48,7 @@ class App.Views.Details extends Backbone.View
     this.model = this.collection.get(cid)
     if this.model?
       console.log this.model
-      this.$el.find(".info").html(template)
+      this.$el.find(".info").html(this.template())
     else
       this.$el.find(".info").html "<h3><em>Sorry, nothing to see here!</em></h3>"
     
