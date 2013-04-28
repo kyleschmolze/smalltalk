@@ -5,7 +5,7 @@ module.exports = () ->
 espn = require("./espn")()
 
 triviaStore =
-  playerData: {} # { playerId: { items: [], league: 'nba', sport: 'basketball' }
+  allPlayerData: {} # { playerId: { items: [], league: 'nba', sport: 'basketball' }
 
   _shuffle: (a) ->
     i = a.length
@@ -20,9 +20,10 @@ triviaStore =
     playerId = this.ExtractPlayerItem(results)
     if !playerId?
       opts.failure()
-    else if !this.playerData[playerId]?
-      this.BuildPlayerData playerId, =>
-        if this.playerData[playerId]
+    else if !this.allPlayerData[playerId]?
+      this.BuildPlayerData playerId, (newPlayerData) =>
+        this.allPlayerData[newPlayerData.id] = newPlayerData
+        if this.allPlayerData[playerId]
           opts.success this.PullItem playerId
         else
           opts.failure()
@@ -38,7 +39,6 @@ triviaStore =
 
     espn.GetAthleteDetails playerData, (funfacts) =>
       playerData.items = playerData.items.concat funfacts
-      console.log playerData
 
       #Got our details, let's add some trivia!!
       espn.GetAthleteTrivia playerData, (triviafacts) =>
@@ -51,19 +51,19 @@ triviaStore =
           #All done grabbin teh data!
           if playerData.items.length > 0
             playerData.items = this._shuffle(playerData.items)
-            this.playerData.playerId = playerData
-            this.playerData.name = playerData.name
-            this.playerData.image = playerData.image
-          callback()
+            #this.allPlayerData[playerId] = playerData
+            #this.allPlayerData[playerId].name = playerData.name
+            #this.allPlayerData[playerId].image = playerData.image
+
+          callback(playerData)
 
   PullItem: (playerId) ->
     this.index or= 0
-    item = this.playerData[playerId].items[this.index]
-    this.index = this.index + 1 % this.playerData[playerId].items.length
+    item = this.allPlayerData[playerId].items[this.index]
+    this.index = this.index + 1 % this.allPlayerData[playerId].items.length
 
-    item.name = this.playerData.name
-    item.image = this.playerData.image
-    console.log item
+    item.name = this.allPlayerData[playerId].name
+    item.image = this.allPlayerData[playerId].image
     item
 
   ExtractPlayerItem: (results) ->

@@ -42,8 +42,10 @@ module.exports = (socket) ->
 
         trivia_store.GetPlayerNotes opts.results,
           success: (headline) ->
+            console.log 'PLAYER SUCCESS'
             socket.emit 'new-item', headline
           failure: ->
+            console.log 'PLAYER FAIL'
             dictionary_store.GetDefinition opts.results,
               success: (rule) ->
                 socket.emit 'new-item', rule
