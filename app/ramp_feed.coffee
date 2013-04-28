@@ -40,7 +40,7 @@ module.exports = (socket) ->
           console.log t
           if !opts.canned_data && (opts.timestamp || t > opts.timestamp)
             opts.timestamp = t
-        trivia_store.GetPlayerTrivia opts.results,
+        trivia_store.GetPlayerNotes opts.results,
           success: (headline) ->
             socket.emit 'new-item', headline
           failure: ->

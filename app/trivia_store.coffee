@@ -4,6 +4,7 @@ module.exports = () ->
 
 triviaStore =
   localDataStore: {}
+  sentDetails: false
   _shuffle: (a) ->
     i = a.length
     while --i > 0
@@ -24,6 +25,28 @@ triviaStore =
     for h in this.localDataStore[playerId]
       h.used = null
       return this.GrabRandomTriviaFromLocalStore(playerId)
+
+  GetPlayerNotes: (results, opts) ->
+    playerId = this.ExtractPlayerItem(results)
+    if !playerId
+      opts.failure()
+      return
+    if !sentDetails
+      sentDetails = true
+      espn = require("./espn")()
+      espn.GetAthleteDetails "basketball", "nba", playerId, (details) =>
+          if details.length > 0
+            console.log "details success!!"
+            console.log details
+            opts.success {
+                      title: details["fullName"],
+                      description:"#{details.firstName}, repping #{details.teams[0].name}, weighs in at a massive #{details.weight} pounds." 
+                    }
+          else
+            console.log "details failure!!"
+            this.GetPlayerTrivia(results, opts)
+    else
+      this.GetPlayerTrivia(results, opts)
 
   GetPlayerTrivia: (results, opts) ->
     playerId = this.ExtractPlayerItem(results)
