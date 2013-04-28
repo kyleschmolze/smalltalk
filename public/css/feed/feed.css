@@ -66,20 +66,20 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /* line 1, ../../../sass/feed/_header.scss */
 .header {
   font-family: Sports;
-  background: #111;
-  color: #fff;
-  margin: 0;
-  font-size: 24px;
-  text-align: right;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 35px;
+  background: #111111 !important;
+  color: white !important;
+  margin: 0 !important;
+  text-align: right !important;
+  position: fixed !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 35px !important;
 }
-/* line 13, ../../../sass/feed/_header.scss */
+/* line 12, ../../../sass/feed/_header.scss */
 .header h1 {
-  line-height: 35px;
-  padding-right: 10px;
+  line-height: 35px !important;
+  padding-right: 10px !important;
+  font-size: 24px !important;
 }
 
 @font-face {
@@ -93,7 +93,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 /* line 8, ../../../sass/feed/feed.scss */
 body {
   padding: 35px 0 0 0 !important;
-  background: #ddd;
+  background: #eeeeee !important;
 }
 /* line 12, ../../../sass/feed/feed.scss */
 body div.container {
@@ -129,9 +129,9 @@ ul.feed li {
   -moz-transition: height 200ms;
   -o-transition: height 200ms;
   transition: height 200ms;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
   width: 92%;
   display: block;
   background: #fff;
@@ -169,17 +169,18 @@ ul.feed li a div.description {
   vertical-align: top;
   color: #666;
   font-size: 13px !important;
+  line-height: 15px !important;
 }
 /* line 78, ../../../sass/feed/feed.scss */
 ul.feed li a div.description a {
   color: #666666 !important;
   font-family: Arial, Helvetica, sans-serif !important;
 }
-/* line 81, ../../../sass/feed/feed.scss */
+/* line 82, ../../../sass/feed/feed.scss */
 ul.feed li a img {
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
   float: left;
   margin-right: 8px;
 }

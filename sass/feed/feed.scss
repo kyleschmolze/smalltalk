@@ -7,7 +7,7 @@
 
 body {
 	padding: 35px 0 0 0 !important;
-	background: #ddd;
+	background: #eee !important;
 
 	div.container { width: 100% !important; margin: 0 !important; }
 }
@@ -38,7 +38,7 @@ ul.feed {
 	li {
 		padding: 7px;
 		@include transition(height 200ms);
-		@include border-radius(2px);
+		@include border-radius(3px);
 		width: 92%;
 		display: block;
 		//border: 1px solid #000 !important;
@@ -76,10 +76,11 @@ ul.feed {
 				color: #666;
 				font-size: 13px !important;
 				a { color: #666 !important; font-family: Arial, Helvetica, sans-serif !important; }
+				line-height: 15px !important;
 			}
 
 			img {
-				@include border-radius(4px);
+				@include border-radius(3px);
 				float:left;
 				margin-right: 8px;
 			}
