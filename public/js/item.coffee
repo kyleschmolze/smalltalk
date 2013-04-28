@@ -6,7 +6,7 @@ class App.Collections.Items extends Backbone.Collection
         title: data.title
         image: data.image
         description: data.description
-        type: data.type
+        category: data.category
 
     this.details_view = new App.Views.Details
       el: $(".details")
@@ -29,6 +29,7 @@ class App.Views.Item extends Backbone.View
     this.render()
 
   render: ->
+    console.log this.model.toJSON()
     this.$el.html _.template $("#item-view").html(), this.model.toJSON()
     $("ul").prepend this.el
 

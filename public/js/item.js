@@ -22,7 +22,7 @@
           title: data.title,
           image: data.image,
           description: data.description,
-          type: data.type
+          category: data.category
         }));
       });
       return this.details_view = new App.Views.Details({
@@ -77,6 +77,7 @@
     };
 
     Item.prototype.render = function() {
+      console.log(this.model.toJSON());
       this.$el.html(_.template($("#item-view").html(), this.model.toJSON()));
       return $("ul").prepend(this.el);
     };

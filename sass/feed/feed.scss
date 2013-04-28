@@ -1,0 +1,16 @@
+@import './_header';
+@import './_fonts';
+
+body {
+	padding: 0 !important;
+
+	div.container { width: 100% !important; margin: 0 !important; }
+}
+
+ul.feed {
+	li {
+		//@include transition(opacity 200ms);
+		opacity: 0;
+		height: 0 !important;
+	}
+}
