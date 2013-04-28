@@ -13,7 +13,7 @@ dictionary_store =
     for term, definition of dictionary
       if text.indexOf(term) != -1
         opts.success
-          type: "definition"
+          category: "definition"
           title: term
           description: dictionary[term]
         return null

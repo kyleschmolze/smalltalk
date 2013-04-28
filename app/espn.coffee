@@ -14,8 +14,8 @@ api =
     return null
 
 
-  GetAthleteTrivia: (athleteId, callback) ->
-    url = "http://api.espn.com/v1/sports/news/notes/?athletes=#{athleteId}&apikey=#{apiKey}"
+  GetAthleteTrivia: (playerData, callback) ->
+    url = "http://api.espn.com/v1/sports/news/notes/?athletes=#{playerData.id}&apikey=#{apiKey}"
     request url, (error, response, body) ->
       if (!error and response.statusCode is 200)
         results = JSON.parse(body)
@@ -23,36 +23,69 @@ api =
         for note in results.notes
           if (note.text.length < 400)
             headlines.push
-              id: note.id
-              headline: note.headline
-              text: note.text
+              title: note.headline
+              description: note.text
+              category: 'player-trivia'
 
-        return callback headlines
-    return null
+        callback(headlines)
+      else
+        callback([])
 
-  GetAthleteHeadlines: (sport, league, athleteId, callback) ->
-    url = "http://api.espn.com/v1/sports/#{sport}/#{league}/news/?athletes=#{athleteId}&apikey=#{apiKey}"
+  GetAthleteHeadlines: (playerData, callback) ->
+    url = "http://api.espn.com/v1/sports/#{playerData.sport}/#{playerData.league}/news/?athletes=#{playerData.id}&apikey=#{apiKey}"
     request url, (error, response, body) ->
       if (!error and response.statusCode is 200)
         results = JSON.parse(body)
         headlines = []
         for headline in results.headlines
           headlines.push
-            id: headline.id
-            headline: headline.headline
-            text: headline.description
+            category: 'player-headline'
+            title: headline.headline
+            description: headline.description
 
-        return callback headlines
-    return null
+        callback headlines
+      else
+        callback []
 
-  GetAthleteDetails: (sport, league, athleteId, callback) ->
-    url = "http://api.espn.com/v1/sports/#{sport}/#{league}/athletes/#{athleteId}?apikey=#{apiKey}"
+  GetAthleteDetails: (playerData, callback) ->
+    url = "http://api.espn.com/v1/sports/#{playerData.sport}/#{playerData.league}/athletes/#{playerData.id}?apikey=#{apiKey}"
     request url, (error, response, body) ->
       if (!error and response.statusCode is 200)
         results = JSON.parse(body)
         details = results.sports?[0].leagues?[0].athletes?[0]
-        return callback details
+        funfacts = []
+        if details?
+          #set playerData for everyone else!
+          name = details['displayName']
+          playerData.name = name
+          playerData.image = details['headshots']['medium']['href']
+
+          funfacts.push "#{name} weighs #{details['weight']} lbs."
+          funfacts.push "#{name} is #{details['age']} years old."
+          funfacts.push "#{name} is #{details['height']} inches tall."
+          exp = details['experience'] || 0
+          if exp > 1
+            funfacts.push "#{name} has been playing for #{exp} years."
+          else if exp == 1
+            funfacts.push "This is #{name}'s first year."
+          
+        funitems = []
+        for funfact in funfacts
+          funitems.push
+            title: funfact
+            category: 'player-fact'
+
+        callback funitems
+      else
+        callback []
     return null
+
+    callback([{
+      category: "player detail"
+      title: "a detail"#details["headline"]
+      description: "a desc"#details["text"]
+      image: "img page"#details['headshots']['xlarge']['href']
+    }])
 
   GetTeamHeadlines: (opts) ->
     opts.sport = 'basketball'
@@ -69,9 +102,8 @@ api =
               title: "Team news: #{headline.headline}"
               description: headline.description
               story: headline.story
-              type: 'team-headline'
+              category: 'team-headline'
 
-          #console.log "Building headlines in ESPN: #{headlines.length} of em."
           return opts.success headlines
         else
           return opts.failure()
