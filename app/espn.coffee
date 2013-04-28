@@ -42,6 +42,7 @@ api =
             category: 'player-headline'
             title: headline.headline
             description: headline.description
+            body: headline.story
 
         callback headlines
       else
