@@ -1,5 +1,6 @@
 module.exports = (socket) ->
   trivia_store = require("./trivia_store")()
+  dictionary_store = require("./dictionary_store")()
 
   opts =
     canned_data: true
@@ -37,28 +38,13 @@ module.exports = (socket) ->
           console.log t
           if !opts.canned_data && (opts.timestamp || t > opts.timestamp)
             opts.timestamp = t
-        trivia_store.GetPlayerTrivia(opts.results, {
+        trivia_store.GetPlayerTrivia opts.results,
           success: (headline) ->
             socket.emit 'new-item', headline
           failure: () ->
-            if (item = extractRuleItem(opts))?
-              socket.emit 'new-item', item
-        })
+            dictionary_store.GetDefinition opts.results,
+              success: (rule) ->
+                socket.emit 'new-item', rule
+              failure: () ->
+                null
   , opts.refresh_interval
-
-
-  extractRuleItem = (opts) ->
-    text = []
-    for result in opts.results["LiveFeedItems"]
-      text.push result["Data"]["Text"]
-    text = text.reverse().join(' ').toLowerCase()#.replace(/  /g, " ")
-
-    terms = require("./glossaries/basketball")
-    for term, def of terms
-      if text.indexOf(term) != -1
-        return {
-          title: "#{term}: #{terms[term]}"
-          image: 'http://www.nba.com/media/allstar2008/rallen_300_080130.jpg'
-          description: "A description."
-        }
-    return null

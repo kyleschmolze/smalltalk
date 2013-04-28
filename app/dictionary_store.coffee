@@ -8,7 +8,7 @@ dictionary_store =
     text = []
     for result in results["LiveFeedItems"]
       text.push result["Data"]["Text"]
-    text = text.reverse().join(' ').toLowerCase().replace(/  /g, " ")
+    text = text.reverse().join(' ').toLowerCase().replace(/\s\s/g, " ")
 
     for term, definition of dictionary
       if text.indexOf(term) != -1

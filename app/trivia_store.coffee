@@ -49,7 +49,7 @@ triviaStore =
 
   ExtractPlayerItem: (results) ->
     for result in results["LiveFeedItems"]
-      console.log result["Data"]["Text"].replace(/\n\n/, '')
+      console.log result["Data"]["Text"].replace(/\n/g, '')
 
       for match in result["Matches"]
         #console.log JSON.stringify match
