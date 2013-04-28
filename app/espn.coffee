@@ -94,7 +94,9 @@ api =
             headlines.push
               title: "Team news: #{headline.headline}"
               description: headline.description
-              story: headline.story
+              body: headline.story
+              image: headline.images?[0]?.url
+              url: headline.links?.mobile?.href
               category: 'team'
 
           return opts.success headlines

@@ -7,6 +7,8 @@ class App.Collections.Items extends Backbone.Collection
         image: data.image
         description: data.description
         category: data.category
+        body: data.body
+        url: data.url
 
     this.details_view = new App.Views.Details
       el: $(".details")

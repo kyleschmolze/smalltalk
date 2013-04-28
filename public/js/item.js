@@ -22,7 +22,9 @@
           title: data.title,
           image: data.image,
           description: data.description,
-          category: data.category
+          category: data.category,
+          body: data.body,
+          url: data.url
         }));
       });
       return this.details_view = new App.Views.Details({
