@@ -1,3 +1,7 @@
+@import 'compass/reset';
+@import 'compass';
+@import 'animation';
+
 @import './_header';
 @import './_fonts';
 
@@ -9,8 +13,8 @@ body {
 
 ul.feed {
 	li {
-		//@include transition(opacity 200ms);
-		opacity: 0;
+		@include transition(opacity 200ms);
+		opacity: 1;
 		height: 0 !important;
 	}
 }
