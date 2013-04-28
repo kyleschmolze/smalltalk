@@ -5,9 +5,10 @@
   <title>SmallTalk</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+
 
   <link href="/css/feed/feed.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
   <script>
     App = {
       Views: {},
@@ -36,10 +37,10 @@
     </div>
     <div class='row details hide'>
       <div class='span12'>
-        <h1>
-          Details
-          <small><a class='back' href='javascript:void(0);'>back</a></small>
-        </h1>
+        <a href="#" class="back btn btn-primary btn-small" style="position:absolute; margin: 3px 3px 0px 3px">
+          <i class="icon-white icon-arrow-left"></i>&nbsp;back
+        </a>
+        <h1 class="logo">SmallTalk</h1>
         <div class='info'>
         </div>
       </div>
@@ -55,8 +56,40 @@
   </script>
 
   <script type='text/template' id='details-view'>
-    <h2><%= title %></h2>
-    <h3><%= description %></h3>
+        
+
+      <% if (category == "player-trivia" || category == "player-fact") { %>
+        <img src="<%= image %>" style="float: left;">
+        <h3 style="float:left; margin-left:15px;"> <%= title %> </h3>
+        <% if (category == "player-fact") { %>
+          <p style="clear: both;">
+            <ul>
+              <li>Team:&nbsp; <%= metadata["team"] %></li>
+              <li>Height:&nbsp; <%= metadata["height"] %> inches</li>
+              <li>Weight:&nbsp; <%= metadata["weight"] %> pounds</li>
+              <li>Age:&nbsp; <%= metadata["age"] %></li>
+              <li>Jersey:&nbsp; <%= metadata["jersey"] %></li>
+            </ul>
+          </p>
+        <% } else { %>
+          <p style="clear:both">
+            <%= description %>
+          </p>
+        <% } %>
+      <% } else { %>
+        <div class="title_container">
+          <% if (category == "team" && image) { %>
+              <img src="<%= image %>" width="100%">
+          <% } %>
+          <div style="padding: 0px 15px 15px 15px">
+            <h3><%= title %></h3>
+          </div>
+        </div>
+
+        <div style="padding: 0px 15px 15px 15px">
+          <%= body.replace(/\n/g, "<br>") %>
+        </div>
+      <% } %>
   </script>
 </body>
 </html>

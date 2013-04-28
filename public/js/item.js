@@ -116,7 +116,6 @@
     Details.prototype.render = function(cid) {
       this.model = this.collection.get(cid);
       if (this.model != null) {
-        console.log(this.model);
         return this.$el.find(".info").html(this.template());
       } else {
         return this.$el.find(".info").html("<h3><em>Sorry, nothing to see here!</em></h3>");
