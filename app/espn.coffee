@@ -72,7 +72,7 @@ api =
               story: headline.story
               type: 'team-headline'
 
-          console.log "Building headlines in ESPN: #{headlines.length} of em."
+          #console.log "Building headlines in ESPN: #{headlines.length} of em."
           return opts.success headlines
         else
           return opts.failure()

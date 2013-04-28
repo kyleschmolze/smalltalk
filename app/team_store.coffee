@@ -16,7 +16,7 @@ team_store =
           if headlines?
             this.localData.headlines = headlines
             head = this.NextHeadline()
-            console.log "Success! #{head.title}"
+            #console.log "Success! #{head.title}"
             opts.success head
           else
             opts.failure()
