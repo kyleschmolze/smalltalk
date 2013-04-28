@@ -32,10 +32,16 @@ class App.Views.Item extends Backbone.View
     this.render()
 
   render: ->
-    console.log this.model.toJSON()
     this.$el.addClass this.model.get('category')
     this.$el.html _.template $("#item-view").html(), this.model.toJSON()
     $("ul").prepend this.el
+    curHeight = this.$el.height()
+    this.$el.addClass "close"
+    setTimeout ()=>
+      this.$el.removeClass "close"
+      this.$el.addClass "open"
+      this.$el.css { height: curHeight }
+    , 500
 
 
 class App.Views.Details extends Backbone.View

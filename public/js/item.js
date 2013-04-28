@@ -80,10 +80,21 @@
     };
 
     Item.prototype.render = function() {
-      console.log(this.model.toJSON());
+      var curHeight,
+        _this = this;
+
       this.$el.addClass(this.model.get('category'));
       this.$el.html(_.template($("#item-view").html(), this.model.toJSON()));
-      return $("ul").prepend(this.el);
+      $("ul").prepend(this.el);
+      curHeight = this.$el.height();
+      this.$el.addClass("close");
+      return setTimeout(function() {
+        _this.$el.removeClass("close");
+        _this.$el.addClass("open");
+        return _this.$el.css({
+          height: curHeight
+        });
+      }, 500);
     };
 
     return Item;

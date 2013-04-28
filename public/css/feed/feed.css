@@ -129,60 +129,72 @@ ul.feed li.player-fact div.title {
   font-weight: bold;
 }
 /* line 40, ../../../sass/feed/feed.scss */
-ul.feed li {
+ul.feed li.close {
+  height: 0px;
+  padding: 0px;
+  margin: 0px;
+  opacity: 0;
+}
+/* line 46, ../../../sass/feed/feed.scss */
+ul.feed li.open {
+  -webkit-transition: height 350ms;
+  -moz-transition: height 350ms;
+  -o-transition: height 350ms;
+  transition: height 350ms;
+  height: 0px;
   padding: 7px;
-  -webkit-transition: height 200ms;
-  -moz-transition: height 200ms;
-  -o-transition: height 200ms;
-  transition: height 200ms;
+  margin: 7px auto;
+  opacity: 1;
+}
+/* line 53, ../../../sass/feed/feed.scss */
+ul.feed li {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   width: 92%;
   display: block;
   background: #fff;
-  margin: 6px auto;
   -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
   overflow: hidden;
 }
-/* line 52, ../../../sass/feed/feed.scss */
+/* line 63, ../../../sass/feed/feed.scss */
 ul.feed li a {
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif !important;
 }
-/* line 63, ../../../sass/feed/feed.scss */
+/* line 74, ../../../sass/feed/feed.scss */
 ul.feed li a div.divider {
   display: block;
   height: 5px;
 }
-/* line 68, ../../../sass/feed/feed.scss */
+/* line 79, ../../../sass/feed/feed.scss */
 ul.feed li a div.title {
   display: inline;
   vertical-align: top;
-  font-size: 15px !important;
+  font-size: 16px !important;
   color: #000;
 }
-/* line 72, ../../../sass/feed/feed.scss */
+/* line 83, ../../../sass/feed/feed.scss */
 ul.feed li a div.title a {
   color: black !important;
   font-family: Arial, Helvetica, sans-serif !important;
 }
-/* line 75, ../../../sass/feed/feed.scss */
+/* line 86, ../../../sass/feed/feed.scss */
 ul.feed li a div.description {
   display: inline;
   vertical-align: top;
   color: #666;
   font-size: 13px !important;
-  line-height: 15px !important;
+  line-height: 12px !important;
 }
-/* line 80, ../../../sass/feed/feed.scss */
+/* line 91, ../../../sass/feed/feed.scss */
 ul.feed li a div.description a {
   color: #666666 !important;
   font-family: Arial, Helvetica, sans-serif !important;
 }
-/* line 84, ../../../sass/feed/feed.scss */
+/* line 95, ../../../sass/feed/feed.scss */
 ul.feed li a img {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
