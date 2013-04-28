@@ -67,7 +67,6 @@
       <% if (category == "player-trivia" || category == "player-fact") { %>
         <img src="<%= image %>" style="float: left;">
         <h3 style="float:left; margin-left:15px;"> <%= title %> </h3>
-        <% if (category == "player-fact") { %>
           <p style="clear: both;">
             <ul>
               <li>Team:&nbsp; <%= metadata["team"] %></li>
@@ -75,10 +74,13 @@
               <li>Weight:&nbsp; <%= metadata["weight"] %> pounds</li>
               <li>Age:&nbsp; <%= metadata["age"] %></li>
               <li>Jersey:&nbsp; <%= metadata["jersey"] %></li>
+              <% if (metadata["score"]) { %>
+                <li><img src="http://www.convertiv.com/wp-content/uploads/2012/02/klout-logo.jpg" style="float:left; height: 18px; padding-top:3px">&nbsp;&nbsp;<%= metadata["score"] %></li>
+              <% } %>
             </ul>
           </p>
-        <% } else { %>
-          <p style="clear:both">
+        <% if (category == "player-trivia") { %>
+          <p style="clear:both; padding: 0px 15px 15px 15px;">
             <%= description %>
           </p>
         <% } %>
