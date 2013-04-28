@@ -27,11 +27,13 @@
   <script src="/js/router.js"></script>
 </head>
 <body>
+  <div class="header">
+    <h1 class="logo">Smalltalkr</h1>
+  </div>
   <div class='container'>
     <div class='row feed'>
       <div class='span12'>
-        <h1 class="logo">SmallTalk</h1>
-        <ul class="nav nav-tabs nav-stacked" class="feed">
+        <ul class="feed">
         </ul>
       </div>
     </div>
@@ -51,7 +53,12 @@
       <% if (image) { %>
         <img src=<%=image%> height=30 width=30>
       <% } %> 
-      <%= title %>
+      <!--<div class='text'>-->
+        <div class='title'><%= title %></div>
+        <% if (description) { %>
+        <div class='divider'></div><div class='description'><%= description %></div>
+        <% } %> 
+      <!--</div>-->
     </a>
   </script>
 

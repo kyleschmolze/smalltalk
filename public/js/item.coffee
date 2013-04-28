@@ -33,6 +33,7 @@ class App.Views.Item extends Backbone.View
 
   render: ->
     console.log this.model.toJSON()
+    this.$el.addClass this.model.get('category')
     this.$el.html _.template $("#item-view").html(), this.model.toJSON()
     $("ul").prepend this.el
 

@@ -6,15 +6,83 @@
 @import './_fonts';
 
 body {
-	padding: 0 !important;
+	padding: 35px 0 0 0 !important;
+	background: #ddd;
 
 	div.container { width: 100% !important; margin: 0 !important; }
 }
 
 ul.feed {
+	li.team {
+		img { 
+			width: 40%; 
+			//margin-bottom: -4px 
+		}
+	}
+	li.player-headline, li.player-trivia {
+		img { 
+			width: 18%; 
+			//margin-bottom: -4px 
+		}
+	}
+	li.player-fact {
+		background: #eee;
+		img { 
+			width: 9%; 
+		}
+		div.title {
+			font-size: 16px;
+			font-weight: bold;
+		}
+	}
 	li {
-		@include transition(opacity 200ms);
-		opacity: 1;
-		height: 0 !important;
+		padding: 7px;
+		@include transition(height 200ms);
+		@include border-radius(2px);
+		width: 92%;
+		display: block;
+		//border: 1px solid #000 !important;
+		background: #fff;
+		margin: 6px auto;
+		@include box-shadow(0px 0px 4px rgba(#000,.3));
+		overflow: hidden;
+
+		a {
+			text-decoration: none;
+			font-family: Arial, Helvetica, sans-serif !important;
+			//height: 0px;
+			//overflow: hidden;
+			// div.text {
+			// 	display: inline-block;
+			// 	width: 99%;
+			// 	vertical-align: top;
+			// }
+
+			div.divider {
+				display: block;
+				height: 5px;
+			}
+
+			div.title {
+				display: inline;
+				vertical-align: top;
+				font-size: 15px !important;
+				a { color: #000 !important; font-family: Arial, Helvetica, sans-serif !important; }
+				color: #000;
+			}
+			div.description {
+				display: inline;
+				vertical-align: top;
+				color: #666;
+				font-size: 13px !important;
+				a { color: #666 !important; font-family: Arial, Helvetica, sans-serif !important; }
+			}
+
+			img {
+				@include border-radius(4px);
+				float:left;
+				margin-right: 8px;
+			}
+		}
 	}
 }

@@ -81,6 +81,7 @@
 
     Item.prototype.render = function() {
       console.log(this.model.toJSON());
+      this.$el.addClass(this.model.get('category'));
       this.$el.html(_.template($("#item-view").html(), this.model.toJSON()));
       return $("ul").prepend(this.el);
     };
