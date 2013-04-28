@@ -38,6 +38,7 @@ triviaStore =
 
     espn.GetAthleteDetails playerData, (funfacts) =>
       playerData.items = playerData.items.concat funfacts
+      console.log playerData
 
       #Got our details, let's add some trivia!!
       espn.GetAthleteTrivia playerData, (triviafacts) =>
@@ -50,7 +51,9 @@ triviaStore =
           #All done grabbin teh data!
           if playerData.items.length > 0
             playerData.items = this._shuffle(playerData.items)
-            this.playerData[playerId] = playerData
+            this.playerData.playerId = playerData
+            this.playerData.name = playerData.name
+            this.playerData.image = playerData.image
           callback()
 
   PullItem: (playerId) ->
@@ -60,6 +63,7 @@ triviaStore =
 
     item.name = this.playerData.name
     item.image = this.playerData.image
+    console.log item
     item
 
   ExtractPlayerItem: (results) ->
